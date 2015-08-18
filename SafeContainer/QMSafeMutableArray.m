@@ -136,6 +136,20 @@
     return result;
 }
 
+#pragma mark - Enum
+
+- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL * stop))block {
+    [_safeLock lock];
+    [super enumerateObjectsUsingBlock:block];
+    [_safeLock unlock];
+}
+
+- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id  obj, NSUInteger idx, BOOL * stop))block {
+    [_safeLock lock];
+    [super enumerateObjectsWithOptions:opts usingBlock:block];
+    [_safeLock unlock];
+}
+
 #pragma mark NSLocking
 
 - (void)lock
